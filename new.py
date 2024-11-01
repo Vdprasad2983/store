@@ -33,8 +33,11 @@ with st.sidebar:
             mobile=st.text_input("enter your mobile number",max_chars=10)
             submit_button=st.button("submit")
             date=datetime.datetime.now()
-            cur.execute('select USERNAME,PASSWORD from storedata')
-            rows = cur.fetchall()
+            try:
+              cur.execute('select USERNAME,PASSWORD from storedata')
+              rows = cur.fetchall()
+            except UndefinedTable:
+              continue
             if submit_button:
                     if not username or not password:
                         st.warning("please enter the mandatory fields")
