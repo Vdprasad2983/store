@@ -37,7 +37,7 @@ with st.sidebar:
               cur.execute('select USERNAME,PASSWORD from storedata')
               rows = cur.fetchall()
             except UndefinedTable:
-              continue
+              st.write("table not created yet!")
             if submit_button:
                     if not username or not password:
                         st.warning("please enter the mandatory fields")
