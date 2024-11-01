@@ -1,6 +1,5 @@
 streamlit
 boto3
-os
 io
 streamlit_option_menu
 psycopg2
