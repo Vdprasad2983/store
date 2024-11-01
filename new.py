@@ -36,7 +36,7 @@ with st.sidebar:
             try:
               cur.execute('select USERNAME,PASSWORD from storedata')
               rows = cur.fetchall()
-            except UndefinedTable:
+            except:
               st.write("table not created yet!")
             if submit_button:
                     if not username or not password:
