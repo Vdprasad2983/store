@@ -33,7 +33,7 @@ with st.sidebar:
             mobile=st.text_input("enter your mobile number",max_chars=10)
             submit_button=st.button("submit")
             date=datetime.datetime.now()
-            cur.execute('select USERNAME,PASSWORD from userdata')
+            cur.execute('select USERNAME,PASSWORD from storedata')
             rows = cur.fetchall()
             if submit_button:
                     if not username or not password:
@@ -54,7 +54,7 @@ with st.sidebar:
                             CREATE TABLE IF NOT EXISTS storedata(USERNAME TEXT(50),PASSWORD TEXT(50),DATEOFBIRTH TEXT(50),MAIL TEXT(50),MOBILE TEXT(50),DATE TEXT(50))
                         """
                     )
-                    cur.execute("INSERT INTO userdata VALUES (?,?,?,?,?,?)",(username,password,dob,mail,mobile,date))
+                    cur.execute("INSERT INTO storedata VALUES (?,?,?,?,?,?)",(username,password,dob,mail,mobile,date))
                     conn.commit()
                     conn.close()
                     s3.put_object(Bucket="datastoragestreamlit",Key=f"{username}/",ACL="public-read")
