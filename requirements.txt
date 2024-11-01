@@ -1,6 +1,5 @@
 streamlit
 boto3
-io
 streamlit_option_menu
 psycopg2
 datetime
