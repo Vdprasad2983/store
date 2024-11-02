@@ -68,10 +68,10 @@ with st.sidebar:
             username=st.text_input("enter your registered username")
             password=st.text_input("enter your password",type="password")
             submit_button=st.button("submit")
-            query=("SELECT * FROM userdata WHERE USERNAME = ?")
+            query=("SELECT * FROM storedata WHERE USERNAME = %s")
             value=(username,)
             cur.execute(query,value)
-            rows=cur.fetchall()
+            rows=cur.fetchone()
             if submit_button:
                 if not rows:
                     st.error("user is not registered")
