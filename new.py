@@ -88,13 +88,13 @@ with st.sidebar:
     if st.button("Logout"):
         st.session_state.auth = 0  # Reset auth to 0 on logout
         st.session_state.user=""
-        st.experimental_rerun()
+        #st.experimental_rerun()
 
 if st.session_state.auth == 1:
 
     if "upload_files" not in st.session_state:
         st.session_state.upload_files = []
-    st.header("Welcome to your drive")
+    st.header(f"Welcome to your drive {st.session_state.user}")
     select=option_menu(menu_title=None,options=["upload/add",'view & download',"delete file"],orientation="horizontal")
 
     if select=="upload/add":
