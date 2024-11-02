@@ -33,11 +33,12 @@ with st.sidebar:
             mobile=st.text_input("enter your mobile number",max_chars=10)
             submit_button=st.button("submit")
             date=datetime.datetime.now()
-            try:
-              cur.execute('select USERNAME,PASSWORD from storedata')
-              rows = cur.fetchall()
-            except:
-              st.write("table not created yet!")
+            cur.execute(
+                        """
+                            CREATE TABLE IF NOT EXISTS storedata(USERNAME VARCHAR(50),PASSWORD VARCHAR(50),DATEOFBIRTH VARCHAR(50),MAIL VARCHAR(50),MOBILE VARCHAR(50),DATE VARCHAR(50))
+                        """)
+            cur.execute('select USERNAME,PASSWORD from storedata')
+            rows = cur.fetchall()
             if submit_button:
                     if not username or not password:
                         st.warning("please enter the mandatory fields")
@@ -54,10 +55,10 @@ with st.sidebar:
                             st.stop()
                     cur.execute(
                         """
-                            CREATE TABLE IF NOT EXISTS storedata(USERNAME TEXT(50),PASSWORD TEXT(50),DATEOFBIRTH TEXT(50),MAIL TEXT(50),MOBILE TEXT(50),DATE TEXT(50))
+                            CREATE TABLE IF NOT EXISTS storedata(USERNAME VARCHAR(50),PASSWORD VARCHAR(50),DATEOFBIRTH VARCHAR(50),MAIL VARCHAR(50),MOBILE VARCHAR(50),DATE VARCHAR(50))
                         """
                     )
-                    cur.execute("INSERT INTO storedata VALUES (?,?,?,?,?,?)",(username,password,dob,mail,mobile,date))
+                    cur.execute("INSERT INTO storedata(USERNAME, PASSWORD, DATEOFBIRTH, MAIL, MOBILE,DATE) VALUES (%s, %s, %s, %s, %s, %s)",(username,password,dob,mail,mobile,date))
                     conn.commit()
                     conn.close()
                     s3.put_object(Bucket="datastoragestreamlit",Key=f"{username}/",ACL="public-read")
