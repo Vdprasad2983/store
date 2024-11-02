@@ -71,7 +71,7 @@ with st.sidebar:
             query=("SELECT * FROM storedata WHERE USERNAME = %s")
             value=(username,)
             cur.execute(query,value)
-            rows=cur.fetchone()
+            rows=cur.fetchall()
             if submit_button:
                 if not rows:
                     st.error("user is not registered")
